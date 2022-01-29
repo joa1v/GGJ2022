@@ -6,7 +6,7 @@ public class IntersectionTile : Tile
 {
     public Path leftPath;
     public Path rightPath;
-    public Path fwPath;
+
     [SerializeField] private GameObject _arrows;
 
     public void ShowArrows()

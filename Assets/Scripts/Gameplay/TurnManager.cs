@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] private Player[] _players;
     public int currentTurn = 1;
     public bool canChangeTurn;
+    public static bool canMove = true;
 
     public void ChangeTurns()
     {

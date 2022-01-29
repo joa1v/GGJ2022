@@ -8,11 +8,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Dice _dice;
     [SerializeField] private TilesManager _tiles;
     [SerializeField] private TurnManager _turnManager;
+    [SerializeField] private Path _currentPath;
+    private IntersectionTile _intersection;
     private Player _player;
-    //private bool canMove = true;
-    [SerializeField] private Path currentPath;
-    private IntersectionTile intersection;
-
+    private MinigameTile _miniGame;
     private int _pathTileId = 0;
     private int _movementsLeft = 0;
 
@@ -23,44 +22,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _player.turn)
+        if (TurnManager.canMove)
         {
-            Move(_dice.Roll());
+            if (Input.GetKeyDown(KeyCode.Space) && _player.turn)
+            {
+                Move(_dice.Roll());
+            }
         }
 
-        if (intersection)
+        if (_intersection)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (intersection.leftPath)
+                if (_intersection.leftPath)
                 {
-                    currentPath = intersection.leftPath;
-                    Internal_Move();
-                    intersection.HideArrows();
+                    _currentPath = _intersection.leftPath;
+
+                    _pathTileId = 0;
+                    CheckMove();
                 }
 
+                if (_intersection)
+                    _intersection.HideArrows();
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                if (intersection.rightPath)
+                if (_intersection.rightPath)
                 {
-                    currentPath = intersection.rightPath;
-                    Internal_Move();
-                    intersection.HideArrows();
+                    _currentPath = _intersection.rightPath;
+
+                    _pathTileId = 0;
+                    CheckMove();
                 }
+
+                if (_intersection)
+                    _intersection.HideArrows();
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                if (intersection.fwPath)
-                {
-                    currentPath = intersection.fwPath;
-                    Internal_Move();
-                    intersection.HideArrows();
-                }
-            }
+
         }
-
-
     }
 
     public void Move(int places)
@@ -71,36 +70,53 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckMove()
     {
-        intersection = currentPath.tiles[_pathTileId].GetComponent<IntersectionTile>();
+        if (_movementsLeft == 0)
+        {
+            _miniGame = _currentPath.tiles[_pathTileId].GetComponent<MinigameTile>();
 
-        if (intersection)
-            ChangePath(intersection);
+            if (_miniGame)
+            {
+                if (_tiles.TreatOrTrick())
+                    _tiles.Treat();
+                else
+                {
+                    _tiles.minigameScene = _miniGame._minigameSceneId;
+                    _tiles.Trick();
+                }
+            }
 
-
+            _turnManager.ChangeTurns();
+            TurnManager.canMove = true;
+        }
         if (_movementsLeft > 0)
         {
+            TurnManager.canMove = false;
             Internal_Move();
             _movementsLeft--;
         }
+
+        _intersection = _currentPath.tiles[_pathTileId].GetComponent<IntersectionTile>();
+
+        if (_intersection)
+            ChangePath(_intersection);
     }
 
     private void Internal_Move()
     {
-        Vector3 p = currentPath.tiles[_pathTileId].transform.position;
-        transform.position = new Vector3(p.x, transform.position.y, p.z);
-
-        if (_pathTileId < currentPath.tiles.Length - 1)
+        if (_pathTileId < _currentPath.tiles.Length - 1)
             _pathTileId++;
 
-        //CheckMove();
+        Vector3 p = _currentPath.tiles[_pathTileId].transform.position;
+        transform.position = new Vector3(p.x, transform.position.y, p.z);
+
+        StartCoroutine(Wait(0.5f));
     }
 
-    //IEnumerator Wait(float timeToWait)
-    //{
-    //    canMove = false;
-    //    yield return new WaitForSeconds(timeToWait);
-    //    canMove = true;
-    //}
+    IEnumerator Wait(float timeToWait)
+    {
+        yield return new WaitForSeconds(timeToWait);
+        CheckMove();
+    }
 
     private void ChangePath(IntersectionTile intersection)
     {
