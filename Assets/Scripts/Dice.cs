@@ -10,7 +10,7 @@ public class Dice : MonoBehaviour
     public int diceNum;
     public int Roll()
     {
-        int num = Random.Range(_min, _max);
+        int num = Random.Range(_min, _max+1);
 
         diceNum = num;
         return num;
