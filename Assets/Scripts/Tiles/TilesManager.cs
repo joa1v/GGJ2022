@@ -27,7 +27,7 @@ public class TilesManager : MonoBehaviour
     public void Treat(int id)
     {
         TreatManager.AddTreat(id, 1);
-        _trickPanel.SetActive(true);
+        _treatPanel.SetActive(true);
     }
 
     public void Trick(int id)
