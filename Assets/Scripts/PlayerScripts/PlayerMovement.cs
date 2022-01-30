@@ -33,7 +33,6 @@ public class PlayerMovement : MonoBehaviour
                 currentPathId = PlayerPrefs.GetInt("PathID1");
                 _currentPath = _tiles.paths[currentPathId];
                 _pathTileId = PlayerPrefs.GetInt("PathTileId1");
-
             }
             else
             {
@@ -112,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
                 {
                     _tiles.minigameScene = _miniGame._minigameSceneId;
                     _tiles.Trick(_player.id);
-                    SavePositions();
                 }
             }
             else
@@ -161,7 +159,7 @@ public class PlayerMovement : MonoBehaviour
         TurnManager.canMove = false;
     }
 
-    private void SavePositions()
+    public void SavePositions()
     {
         currentPathId = _tiles.GetPathId(_currentPath);
 

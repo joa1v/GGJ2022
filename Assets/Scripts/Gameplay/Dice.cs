@@ -19,7 +19,7 @@ public class Dice : MonoBehaviour
         int num = Random.Range(_min, _max+1);
 
         diceNum = num;
-        //diceImg.sprite = diceFaces[num];
+        diceImg.sprite = diceFaces[num-1];
         return num;
     }
 }

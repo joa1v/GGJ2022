@@ -7,7 +7,6 @@ public class MySceneManager : MonoBehaviour
 {
     public static void GoToScene(int id)
     {
-        Debug.Log("indo para: " + id);
         SceneManager.LoadScene(id);
     }
 

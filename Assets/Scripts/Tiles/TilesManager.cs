@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 public class TilesManager : MonoBehaviour
 {
-    [SerializeField] private float _threatPercent;
+    [SerializeField] private PlayerMovement[] _players;
+    [SerializeField] private float _treatPercent;
     [SerializeField] private float _loadTime;
     [SerializeField] private GameObject _treatPanel;
     [SerializeField] private GameObject _trickPanel;
@@ -17,7 +18,7 @@ public class TilesManager : MonoBehaviour
     {
         float num = Random.Range(0f, 100f);
 
-        if (num < _threatPercent)
+        if (num < _treatPercent)
             return true;
         else
             return false;
@@ -31,6 +32,8 @@ public class TilesManager : MonoBehaviour
 
     public void Trick(int id)
     {
+        _players[0].SavePositions();
+        _players[1].SavePositions();
         Debug.Log("load trick");
         _trickPanel.SetActive(true);
         PlayerPrefs.SetInt("CurrentMinigamePlayerId", id);

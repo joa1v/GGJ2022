@@ -6,7 +6,7 @@ using TMPro;
 
 public class GameUIManager : MonoBehaviour
 {
-    [SerializeField] private Text _diceNum;
+    //[SerializeField] private Text _diceNum;
     [SerializeField] private TextMeshProUGUI _playerTurn;
 
     [SerializeField] private TurnManager _turnManager;
@@ -25,8 +25,8 @@ public class GameUIManager : MonoBehaviour
 
     private void Update()
     {
-        _playerTurn.text = "Player: " + _turnManager.currentTurn + " turn";
-        _diceNum.text = _dice.diceNum.ToString();
+        _playerTurn.text = "Player: " + _turnManager.currentTurn;
+        //_diceNum.text = _dice.diceNum.ToString();
     }
 
     public void ActiveEnigma(int enigmaID)
