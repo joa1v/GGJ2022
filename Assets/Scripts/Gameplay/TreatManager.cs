@@ -8,7 +8,6 @@ public class TreatManager : MonoBehaviour
     {
         int treats = PlayerPrefs.GetInt("Player" + playerID.ToString() + "Treat");
         PlayerPrefs.SetInt("Player" + playerID.ToString() + "Treat", treats + amount);
-
-    } 
+    }
 
 }

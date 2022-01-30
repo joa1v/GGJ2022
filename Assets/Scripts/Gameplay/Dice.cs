@@ -11,6 +11,7 @@ public class Dice : MonoBehaviour
     [SerializeField] private Image diceImg;
 
     [SerializeField] private Sprite[] diceFaces;
+    [SerializeField] private AudioClip diceSFX;
 
     public int diceNum;
 
@@ -20,6 +21,7 @@ public class Dice : MonoBehaviour
 
         diceNum = num;
         diceImg.sprite = diceFaces[num-1];
+        AudioManager.Instance.PlayAudio(diceSFX);
         return num;
     }
 }

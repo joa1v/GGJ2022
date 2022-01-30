@@ -26,6 +26,8 @@ public class Precision : MonoBehaviour
     private int currentPlayerId;
     private bool startGame;
 
+    [SerializeField] private AudioClip _winSFX;
+
     private void Start()
     {
         currentPlayerId = PlayerPrefs.GetInt("CurrentMinigamePlayerId");
@@ -38,8 +40,6 @@ public class Precision : MonoBehaviour
     {
         if (startGame)
         {
-            MoveIndicator();
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (_indicator.inArea)
@@ -54,6 +54,7 @@ public class Precision : MonoBehaviour
                     {
                         MoveSpider();
                         TreatManager.AddTreat(currentPlayerId, 1);
+                        AudioManager.Instance.PlayAudio(_winSFX);
                         _winPanel.SetActive(true);
                     }
 
@@ -63,6 +64,11 @@ public class Precision : MonoBehaviour
             }
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        MoveIndicator();
     }
 
     private void MoveIndicator()

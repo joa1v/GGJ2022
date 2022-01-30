@@ -39,6 +39,8 @@ public class TurnManager : MonoBehaviour
             _p2Light.SetActive(true);
         }
         _gameUiManager.ActiveEnigma(currentTurn - 1);
+
+        _gameUiManager.UpdateEnigma();
     }
 
     public void CheckTurns()

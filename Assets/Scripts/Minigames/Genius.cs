@@ -27,6 +27,9 @@ public class Genius : MonoBehaviour
 
     private int currentPlayerId;
 
+    [SerializeField] private AudioClip[] _clips;
+    [SerializeField] private AudioClip _winSFX;
+
     private void Start()
     {
         currentPlayerId = PlayerPrefs.GetInt("CurrentMinigamePlayerId");
@@ -60,6 +63,7 @@ public class Genius : MonoBehaviour
                     else
                     {
                         TreatManager.AddTreat(currentPlayerId, 1);
+                        AudioManager.Instance.PlayAudio(_winSFX);
                         _winPanel.SetActive(true);
                     }
                 }
@@ -82,6 +86,7 @@ public class Genius : MonoBehaviour
         yield return new WaitForSeconds(time / 2);
 
         _light.gameObject.SetActive(true);
+        AudioManager.Instance.PlayAudio(_clips[Random.Range(0, _clips.Length - 1)]);
 
         yield return new WaitForSeconds(time / 2);
 

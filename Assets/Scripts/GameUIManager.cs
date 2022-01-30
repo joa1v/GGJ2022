@@ -46,6 +46,9 @@ public class GameUIManager : MonoBehaviour
         int player1Treats = PlayerPrefs.GetInt("Player0Treat");
         int player2Treats = PlayerPrefs.GetInt("Player1Treat");
 
+        _enigmas[0].text = "";
+        _enigmas[1].text = "";
+
         for (int i = 0; i < _enigmaData[0].Enigmas.Length; i++)
         {
             string enig = i < player1Treats ? _enigmaData[0].EnigmaAnswers[i] : _enigmaData[0].Enigmas[i];

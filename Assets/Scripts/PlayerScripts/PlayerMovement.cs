@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TilesManager _tiles;
     [SerializeField] private TurnManager _turnManager;
     [SerializeField] private Path _currentPath;
+    [SerializeField] private AudioClip _stepSound;
 
     public int currentPathId;
     public int _pathTileId;
@@ -106,6 +107,7 @@ public class PlayerMovement : MonoBehaviour
                 if (!treatOrTrick)
                 {
                     _tiles.Treat(_player.id);
+                    _turnManager.ChangeTurns();
                 }
                 else
                 {
@@ -140,7 +142,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 p = _currentPath.tiles[_pathTileId].transform.position;
         transform.position = new Vector3(p.x, transform.position.y, p.z);
-
+        AudioManager.Instance.PlayOneShotAudio(_stepSound);
         StartCoroutine(Wait(0.5f));
     }
 

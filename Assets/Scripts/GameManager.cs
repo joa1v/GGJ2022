@@ -2,20 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static int savedPlayerPos;
-    [SerializeField] private TextMeshProUGUI winTxt;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject pausePanel;
 
+
     public static bool isPaused;
+
+    [SerializeField] private AudioClip _winSFX;
+
+    [SerializeField] private Image playerImg;
+    [SerializeField] Sprite[] _playerImgs;
+
 
     public void Win(int playerID)
     {
-        winTxt.text = "Player: " + playerID + " wins!!";
+        playerImg.sprite = _playerImgs[playerID];
         winPanel.SetActive(true);
+        AudioManager.Instance.PlayAudio(_winSFX);
     }
 
     private void Update()
@@ -42,5 +50,10 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1;
         pausePanel.SetActive(isPaused);
+    }
+
+    public void Restart()
+    {
+        PlayerPrefs.DeleteAll();
     }
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+
 public class TilesManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovement[] _players;
-    [SerializeField] private float _treatPercent;
+    [SerializeField] private float _trickPercent;
     [SerializeField] private float _loadTime;
     [SerializeField] private float _treatTime;
     [SerializeField] private GameObject _treatPanel;
     [SerializeField] private GameObject _trickPanel;
 
     [HideInInspector] public int minigameScene;
+
+    [SerializeField] private AudioClip treatSFX;
 
     public Path[] paths;
 
@@ -19,7 +22,7 @@ public class TilesManager : MonoBehaviour
     {
         float num = Random.Range(0f, 100f);
 
-        if (num < _treatPercent)
+        if (num < _trickPercent)
             return true;
         else
             return false;
@@ -29,6 +32,8 @@ public class TilesManager : MonoBehaviour
     {
         TreatManager.AddTreat(id, 1);
         _treatPanel.SetActive(true);
+        AudioManager.Instance.PlayAudio(treatSFX);
+
         StartCoroutine(CloseTreat(_treatTime));
     }
 
@@ -60,7 +65,6 @@ public class TilesManager : MonoBehaviour
             if (paths[i] == path)
                 return i;
         }
-
-         return -1;
+        return -1;
     }
 }
