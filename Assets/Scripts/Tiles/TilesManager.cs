@@ -10,6 +10,9 @@ public class TilesManager : MonoBehaviour
 
     [HideInInspector] public int minigameScene;
 
+    public Path[] paths;
+
+
     public bool TreatOrTrick()
     {
         float num = Random.Range(0f, 100f);
@@ -20,14 +23,17 @@ public class TilesManager : MonoBehaviour
             return false;
     }
 
-    public void Treat()
+    public void Treat(int id)
     {
+        TreatManager.AddTreat(id, 1);
         _trickPanel.SetActive(true);
     }
 
-    public void Trick()
+    public void Trick(int id)
     {
+        Debug.Log("load trick");
         _trickPanel.SetActive(true);
+        PlayerPrefs.SetInt("CurrentMinigamePlayerId", id);
         StartCoroutine(LoadTrick(_loadTime));
     }
 
@@ -35,5 +41,16 @@ public class TilesManager : MonoBehaviour
     {
         yield return new WaitForSeconds(loadTime);
         MySceneManager.GoToScene(minigameScene);
+    }
+
+    public int GetPathId(Path path)
+    {
+        for (int i = 0; i < paths.Length; i++)
+        {
+            if (paths[i] == path)
+                return i;
+        }
+
+         return -1;
     }
 }

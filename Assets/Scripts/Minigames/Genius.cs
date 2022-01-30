@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Genius : MonoBehaviour
 {
+    [SerializeField] private float _timeToWait;
     [SerializeField] private int _turns;
     [SerializeField] private int _signs;
     [SerializeField] private RectTransform[] _colors;
@@ -25,10 +25,13 @@ public class Genius : MonoBehaviour
     [SerializeField] private GameObject _loosePanel;
     [SerializeField] private GameObject _winPanel;
 
+    private int currentPlayerId;
+
     private void Start()
     {
+        currentPlayerId = PlayerPrefs.GetInt("CurrentMinigamePlayerId");
         _signsLeft = _signs;
-        StartGenius();
+        StartCoroutine(Wait(_timeToWait));
     }
 
     private void StartGenius()
@@ -51,9 +54,14 @@ public class Genius : MonoBehaviour
                 {
                     _correct.SetActive(true);
                     if (_turns > 0)
-                        NextRound();
+                    {
+                        StartCoroutine(NextRound(0.25f));
+                    }
                     else
+                    {
+                        TreatManager.AddTreat(currentPlayerId, 1);
                         _winPanel.SetActive(true);
+                    }
                 }
                 else
                 {
@@ -85,6 +93,12 @@ public class Genius : MonoBehaviour
         StartGenius();
     }
 
+    IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+        StartGenius();
+    }
+
     private bool CheckOrder()
     {
         for (int i = 0; i < _playerOrder.Count; i++)
@@ -95,8 +109,9 @@ public class Genius : MonoBehaviour
         return true;
     }
 
-    public void NextRound()
+    IEnumerator NextRound(float time)
     {
+        yield return new WaitForSeconds(time);
         _correct.SetActive(false);
         _playerInputs = 0;
         _signs++;
@@ -104,6 +119,7 @@ public class Genius : MonoBehaviour
 
         _order.Clear();
         _playerOrder.Clear();
+
         StartGenius();
         _turns--;
     }
