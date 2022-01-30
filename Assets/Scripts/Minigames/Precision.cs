@@ -11,6 +11,7 @@ public class Precision : MonoBehaviour
     [SerializeField] private Transform _maxY;
     [SerializeField] private Transform _minY;
     [SerializeField] private float _speed;
+    [SerializeField] private float _speedMultiplier;
     [SerializeField] private float _timeToWait;
 
     [SerializeField] private GameObject[] areas;
@@ -107,6 +108,7 @@ public class Precision : MonoBehaviour
 
     private void NextRound()
     {
+        _speed *= _speedMultiplier;
         for (int i = 0; i < areas.Length; i++)
         {
             areas[i].SetActive(false);

@@ -458,6 +458,7 @@ MonoBehaviour:
   _maxY: {fileID: 1346185071}
   _minY: {fileID: 565141715}
   _speed: 0.025
+  _speedMultiplier: 1.25
   _timeToWait: 2
   areas:
   - {fileID: 1267669155}
