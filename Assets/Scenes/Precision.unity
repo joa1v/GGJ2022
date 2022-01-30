@@ -457,8 +457,8 @@ MonoBehaviour:
   _spiderMove: {x: 0, y: -1.75, z: 0}
   _maxY: {fileID: 1346185071}
   _minY: {fileID: 565141715}
-  _speed: 0.025
-  _speedMultiplier: 1.25
+  _speed: 0.06
+  _speedMultiplier: 1.3
   _timeToWait: 2
   areas:
   - {fileID: 1267669155}
