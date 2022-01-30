@@ -86,7 +86,7 @@ public class Genius : MonoBehaviour
         yield return new WaitForSeconds(time / 2);
 
         _light.gameObject.SetActive(true);
-        AudioManager.Instance.PlayAudio(_clips[Random.Range(0, _clips.Length - 1)]);
+        AudioManager.Instance.PlayAudio(_clips[n]);
 
         yield return new WaitForSeconds(time / 2);
 
