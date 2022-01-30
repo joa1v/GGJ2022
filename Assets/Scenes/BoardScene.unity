@@ -7644,7 +7644,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1779841019}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
@@ -8559,7 +8559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c194bb9a29d71847b4b1756d7543275, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.09
+      value: -9.81
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c194bb9a29d71847b4b1756d7543275, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8567,7 +8567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c194bb9a29d71847b4b1756d7543275, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 22
+      value: 19.37
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7c194bb9a29d71847b4b1756d7543275, type: 3}
       propertyPath: m_LocalRotation.w
