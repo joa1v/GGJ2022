@@ -6,6 +6,7 @@ public class TilesManager : MonoBehaviour
     [SerializeField] private PlayerMovement[] _players;
     [SerializeField] private float _treatPercent;
     [SerializeField] private float _loadTime;
+    [SerializeField] private float _treatTime;
     [SerializeField] private GameObject _treatPanel;
     [SerializeField] private GameObject _trickPanel;
 
@@ -28,15 +29,15 @@ public class TilesManager : MonoBehaviour
     {
         TreatManager.AddTreat(id, 1);
         _treatPanel.SetActive(true);
+        StartCoroutine(CloseTreat(_treatTime));
     }
 
     public void Trick(int id)
     {
         _players[0].SavePositions();
         _players[1].SavePositions();
-        Debug.Log("load trick");
+
         _trickPanel.SetActive(true);
-        PlayerPrefs.SetInt("CurrentMinigamePlayerId", id);
         StartCoroutine(LoadTrick(_loadTime));
     }
 
@@ -44,6 +45,12 @@ public class TilesManager : MonoBehaviour
     {
         yield return new WaitForSeconds(loadTime);
         MySceneManager.GoToScene(minigameScene);
+    }
+
+    IEnumerator CloseTreat(float loadTime)
+    {
+        yield return new WaitForSeconds(loadTime);
+        _treatPanel.SetActive(false);
     }
 
     public int GetPathId(Path path)
